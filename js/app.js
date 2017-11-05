@@ -3,10 +3,11 @@ var cats = []; // array to store all the cats
 
 class Cat {
     constructor(name, image) {
-        var $clickCountClass = $(`'.${this.name}-click-counts'`);
+        var clickCountClass = `.${name}-click-counts`
         this.name = name;
         this.image = image;
         this.clicks = 0;
+        cats.push(this);
     }
 
     incrementClick() {
@@ -22,13 +23,17 @@ class Cat {
     }
 
     updateClicks() {
-        $clickCountClass.html(clicks);
+        $(clickCountClass).html(clicks);
     }
 }
 
-cats.push(new Cat('bob', 'img/catphoto1.jpg'));
+new Cat('bob', 'img/catphoto1.jpg');
+cats.forEach(function(cat) {
+    cat.displayCat();
+});
 
 $catContainerClass.on('click', 'img', function() {
-
-
+    currCat = this;
+    currCat.incrementClick;
+    currCat.updateClicks();
 });
