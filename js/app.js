@@ -20,6 +20,7 @@ class Cat {
         let captionHTML = `<figcaption><p>Name: ${this.name}</p>
         <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
         </figcaption>`;
+        $catContainerClass.append(imgHTML + captionHTML);
     }
 
     updateClicks() {
@@ -27,7 +28,7 @@ class Cat {
     }
 }
 
-new Cat('bob', 'img/catphoto1.jpg');
+new Cat('bob', 'img/catphoto.jpg');
 cats.forEach(function(cat) {
     cat.displayCat();
 });
