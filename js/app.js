@@ -1,17 +1,26 @@
 const $catContainerClass = $('.cat-container');
 const $clickCountClass = $('.click-counts');
 
-var catClicks = 0;
+class Cat {
+    constructor(name, image, clicks) {
+        this.name = name;
+        this.image = image;
+        this.clicks = clicks;
+    }
 
-function clickCount() {
-    return catClicks++;
-}
+    incrementClick() {
+        return clicks++;
+    }
 
-function displayClicks() {
-    $clickCountClass.html(catClicks);
+    displayCat() {
+
+    }
+
+    updateClicks() {
+        $clickCountClass.html(catClicks);
+    }
 }
 
 $catContainerClass.on('click', 'img', function() {
-    clickCount();
-    displayClicks();
+
 });
