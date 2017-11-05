@@ -1,4 +1,6 @@
-const catContainer = document.querySelector('#cat-container');
+const $catContainerClass = $('#cat-container');
+const $clickCountClass = $('#click-counts');
+
 var catClicks = 0;
 
 function clickCount() {
@@ -6,11 +8,10 @@ function clickCount() {
 }
 
 function displayClicks() {
-
+    $clickCountClass.innerHTML = catClicks;
 }
 
-var elem = document.getElementById('catPhoto');
-elem.addEventListener('click', function() {
+$catContainerClass.on('click', 'img', function() {
     clickCount();
     displayClicks();
 }, false);
