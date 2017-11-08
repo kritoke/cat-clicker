@@ -30,6 +30,10 @@ class Cat {
 
 new Cat('bob', 'img/catphoto.jpg');
 new Cat('jorge', 'img/catphoto2.jpg');
+new Cat('phil', 'img/catphoto3.jpg');
+new Cat('mews', 'img/catphoto4.jpg');
+new Cat('eric', 'img/catphoto5.jpg');
+
 cats.forEach(function(cat) {
     cat.displayCat();
 });
