@@ -1,4 +1,5 @@
 const $catContainerClass = $('.cat-container');
+const $catPickerClass = $('.cat-picker');
 var cats = []; // array to store all the cats
 
 class Cat {
@@ -15,9 +16,9 @@ class Cat {
     }
 
     displayCat() {
-        let catHTML = '';
-        let imgHTML = `<img src="${this.image}" alt="Click on Photo of ${this.name} to Increment Clicks">`;
-        let captionHTML = `<figcaption><p>Name: ${this.name}</p>
+        var catHTML = '';
+        var imgHTML = `<img src="${this.image}" alt="Click on Photo of ${this.name} to Increment Clicks">`;
+        var captionHTML = `<figcaption><p>Name: ${this.name}</p>
         <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
         </figcaption>`;
         $catContainerClass.append(imgHTML + captionHTML);
@@ -26,6 +27,7 @@ class Cat {
     updateClicks() {
         $(this.clickCountClass).html(this.clicks);
     }
+
 }
 
 new Cat('bob', 'img/catphoto.jpg');
@@ -34,9 +36,20 @@ new Cat('phil', 'img/catphoto3.jpg');
 new Cat('mews', 'img/catphoto4.jpg');
 new Cat('eric', 'img/catphoto5.jpg');
 
-cats.forEach(function(cat) {
-    cat.displayCat();
-});
+// cats.forEach(function(cat) {
+//     cat.displayCat();
+// });
+
+
+function catPickerDisplay() {
+    cats.forEach(function(cat) {
+        $catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
+    });
+}
+
+catPickerDisplay();
+
+
 
 $catContainerClass.on('click', 'img', function() {
     var currCat = this;
