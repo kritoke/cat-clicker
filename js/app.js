@@ -49,7 +49,14 @@ function catPickerDisplay() {
 
 catPickerDisplay();
 
-
+$catPickerClass.on('click', 'div', function() {
+    var currClass = $(this).attr('class');
+    cats.forEach(function(cat) {
+        if (currClass === cat.name) {
+            console.log(cat.name + ' is found');
+        }
+    })
+});
 
 $catContainerClass.on('click', 'img', function() {
     var currCat = this;
