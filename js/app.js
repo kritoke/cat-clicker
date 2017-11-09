@@ -1,5 +1,6 @@
 const $catContainerClass = $('.cat-container');
 const $catPickerClass = $('.cat-picker');
+const $catClickerClass = $('.cat-clicker');
 var cats = []; // array to store all the cats
 
 class Cat {
@@ -21,7 +22,7 @@ class Cat {
         var captionHTML = `<figcaption><p>Name: ${this.name}</p>
         <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
         </figcaption>`;
-        $catContainerClass.append(imgHTML + captionHTML);
+        $catClickerClass.html(catHTML + imgHTML + captionHTML);
     }
 
     updateClicks() {
@@ -30,6 +31,7 @@ class Cat {
 
 }
 
+// create five cats
 new Cat('bob', 'img/catphoto.jpg');
 new Cat('jorge', 'img/catphoto2.jpg');
 new Cat('phil', 'img/catphoto3.jpg');
