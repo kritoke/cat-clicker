@@ -30,10 +30,10 @@ var model = {
 
 var catView = {
     init: function() {
-        var currCat = octopus.getCurrCat();
-        const $catContainerClass = $('.cat-container');
-        const $catClickerClass = $('.cat-clicker');
-        const $clickCountClass = `.${currCat.name}-click-counts`;
+        currCat = octopus.getCurrCat();
+        $clickCountClass = `.${currCat.name}-click-counts`;
+        $catContainerClass = $('.cat-container');
+        $catClickerClass = $('.cat-clicker');
 
         // check if cat image is clicked on, increment counter if clicked
         $catContainerClass.on('click', 'img', function() {
@@ -44,6 +44,8 @@ var catView = {
                 }
             });
         });
+
+        this.render();
     },
 
     updateClicks: function() {
@@ -52,9 +54,9 @@ var catView = {
 
     render: function() {
         var catHTML = '<p>Click the cat: </p>';
-        var imgHTML = `<img src="${this.image}" alt="Click on Photo of ${this.name} to Increment Clicks">`;
-        var captionHTML = `<figcaption><p>Name: ${this.name}</p>
-        <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
+        var imgHTML = `<img src="${currCat.image}" alt="Click on Photo of ${currCat.name} to Increment Clicks">`;
+        var captionHTML = `<figcaption><p>Name: ${currCat.name}</p>
+        <p>Number of Clicks: <span class="${currCat.name}-click-counts">${currCat.clicks}</span></p>
         </figcaption>`;
         $catClickerClass.html(catHTML + imgHTML + captionHTML);
     }
@@ -64,6 +66,7 @@ var catPickerView = {
     init: function() {
         $catPickerClass = $('.cat-picker');
         this.catPickerDisplay();
+        this.render();
     },
 
     catPickerDisplay: function() {
@@ -84,7 +87,7 @@ var catPickerView = {
             cats.forEach(function(cat) {
                 if (currClass === cat.name) {
                     octopus.setCurrCat(cat);
-                    catView.render();
+                    catView.init();
                 }
             })
         });
