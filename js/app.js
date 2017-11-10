@@ -1,33 +1,52 @@
-function model() {
-    var cats = [], // array to store all the cats
-        currCat = null;
-
-    class Cat {
-        constructor(name, image) {
-
-            this.name = name;
-            this.image = image;
-            this.clicks = 0;
+var model = {
+    currCat: null,
+    cats: [{
+            name: 'bob',
+            image: 'img/catphoto.jpg',
+            clicks: 0
+        },
+        {
+            name: 'jorge',
+            image: 'img/catphoto2.jpg',
+            clicks: 0
+        },
+        {
+            name: 'phil',
+            image: 'img/catphoto3.jpg',
+            clicks: 0
+        },
+        {
+            name: 'mews',
+            image: 'img/catphoto4.jpg',
+            clicks: 0
+        },
+        {
+            name: 'eric',
+            image: 'img/catphoto5.jpg',
+            clicks: 0
         }
-    }
-
-    // create five cats
-    new Cat('bob', 'img/catphoto.jpg').push(cats);
-    new Cat('jorge', 'img/catphoto2.jpg').push(cats);
-    new Cat('phil', 'img/catphoto3.jpg').push(cats);
-    new Cat('mews', 'img/catphoto4.jpg').push(cats);
-    new Cat('eric', 'img/catphoto5.jpg').push(cats);
-}
+    ]
+};
 
 var catView = {
     init: function() {
+        var currCat = octopus.getCurrCat();
         const $catContainerClass = $('.cat-container');
         const $clickCountClass = `.${currCat.name}-click-counts`;
-        var currCat = octopus.getCurrCat();
+
+        // check if cat image is clicked on, increment counter if clicked
+        $catContainerClass.on('click', 'img', function() {
+            cats.forEach(function(cat) {
+                if (currCat.image === cat.image) {
+                    octopus.incrementClick();
+                    $($clickCountClass).html(currCat.clicks);
+                }
+            });
+        });
     },
 
     updateClicks: function() {
-        $(this.clickCountClass).html(this.clicks);
+        $($clickCountClass).html(currCat.clicks);
     },
 
     render: function() {
@@ -37,16 +56,6 @@ var catView = {
         <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
         </figcaption>`;
         $catClickerClass.html(catHTML + imgHTML + captionHTML);
-
-        // check if cat image is clicked on, increment counter if clicked
-        $catContainerClass.on('click', 'img', function() {
-            cats.forEach(function(cat) {
-                if (currCat.image === cat.image) {
-                    octopus.incrementClick();
-                    this.updateClicks();
-                }
-            });
-        });
     }
 }
 
@@ -54,7 +63,6 @@ var catPickerView = {
     init: function() {
         const $catPickerClass = $('.cat-picker');
         const $catClickerClass = $('.cat-clicker');
-
     },
 
     catPickerDisplay: function() {
@@ -64,7 +72,6 @@ var catPickerView = {
         cats.forEach(function(cat) {
             $catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
         });
-
     },
 
     render: function() {
@@ -75,21 +82,22 @@ var catPickerView = {
             var currClass = $(this).attr('class');
             cats.forEach(function(cat) {
                 if (currClass === cat.name) {
-                    cat.displayCat();
+                    octopus.setCurrCat(cat);
+                    catView.render();
                 }
             })
         });
-
-
     }
 }
 
 var octopus = {
     init: function() {
-        model.currCat = model.cats[0];
+        // set current cat to first in the list
+        // model.currCat = model.cats[0];
 
         // display cat list for selecting a cat image to click
-        catPickerView.catPickerDisplay();
+        catPickerView.init();
+        catView.init();
     },
 
     getCurrCat: function() {
@@ -110,5 +118,4 @@ var octopus = {
     }
 }
 
-
-octopus();
+octopus.init();
