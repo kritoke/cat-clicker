@@ -14,15 +14,6 @@ function model() {
             return this.clicks++;
         }
 
-        displayCat() {
-            var catHTML = '<p>Click the cat: </p>';
-            var imgHTML = `<img src="${this.image}" alt="Click on Photo of ${this.name} to Increment Clicks">`;
-            var captionHTML = `<figcaption><p>Name: ${this.name}</p>
-            <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
-            </figcaption>`;
-            $catClickerClass.html(catHTML + imgHTML + captionHTML);
-        }
-
         updateClicks() {
             $(this.clickCountClass).html(this.clicks);
         }
@@ -37,6 +28,21 @@ function model() {
     new Cat('eric', 'img/catphoto5.jpg').push(cats);
 }
 
+var catView = {
+    init: function() {
+
+    },
+
+    render: function() {
+        var catHTML = '<p>Click the cat: </p>';
+        var imgHTML = `<img src="${this.image}" alt="Click on Photo of ${this.name} to Increment Clicks">`;
+        var captionHTML = `<figcaption><p>Name: ${this.name}</p>
+        <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
+        </figcaption>`;
+        $catClickerClass.html(catHTML + imgHTML + captionHTML);
+    }
+}
+
 var catPickerView = {
     init: function() {
         const $catContainerClass = $('.cat-container');
@@ -45,7 +51,18 @@ var catPickerView = {
 
     },
 
+    catPickerDisplay: function() {
+        var catHTML = '<p>The following are the available cats, click to make one show up: </p>';
+        $catPickerClass.append(catHTML);
+
+        cats.forEach(function(cat) {
+            $catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
+        });
+
+    },
+
     render: function() {
+        var cats = octopus.getCats();
 
         // check if a cat name is clicked on
         $catPickerClass.on('click', 'div', function() {
@@ -57,15 +74,7 @@ var catPickerView = {
             })
         });
 
-        catPickerDisplay: function() {
-            var catHTML = '<p>The following are the available cats, click to make one show up: </p>';
-            $catPickerClass.append(catHTML);
 
-            cats.forEach(function(cat) {
-                $catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
-            });
-
-        }
     }
 }
 
@@ -77,7 +86,9 @@ var octopus = {
         catPickerView.catPickerDisplay();
     },
 
-
+    getCats: function() {
+        return model.cats;
+    },
 
     // check if cat image is clicked on, increment counter if clicked
     $catContainerClass.on('click', 'img', function() {
