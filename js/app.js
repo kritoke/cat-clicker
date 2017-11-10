@@ -4,20 +4,11 @@ function model() {
 
     class Cat {
         constructor(name, image) {
-            this.clickCountClass = `.${name}-click-counts`
+
             this.name = name;
             this.image = image;
             this.clicks = 0;
         }
-
-        incrementClick() {
-            return this.clicks++;
-        }
-
-        updateClicks() {
-            $(this.clickCountClass).html(this.clicks);
-        }
-
     }
 
     // create five cats
@@ -30,7 +21,13 @@ function model() {
 
 var catView = {
     init: function() {
+        const $catContainerClass = $('.cat-container');
+        const $clickCountClass = `.${currCat.name}-click-counts`;
+        var currCat = octopus.getCurrCat();
+    },
 
+    updateClicks: function() {
+        $(this.clickCountClass).html(this.clicks);
     },
 
     render: function() {
@@ -40,12 +37,21 @@ var catView = {
         <p>Number of Clicks: <span class="${this.name}-click-counts">${this.clicks}</span></p>
         </figcaption>`;
         $catClickerClass.html(catHTML + imgHTML + captionHTML);
+
+        // check if cat image is clicked on, increment counter if clicked
+        $catContainerClass.on('click', 'img', function() {
+            cats.forEach(function(cat) {
+                if (currCat.image === cat.image) {
+                    octopus.incrementClick();
+                    this.updateClicks();
+                }
+            });
+        });
     }
 }
 
 var catPickerView = {
     init: function() {
-        const $catContainerClass = $('.cat-container');
         const $catPickerClass = $('.cat-picker');
         const $catClickerClass = $('.cat-clicker');
 
@@ -86,20 +92,22 @@ var octopus = {
         catPickerView.catPickerDisplay();
     },
 
+    getCurrCat: function() {
+        return model.currCat;
+    },
+
     getCats: function() {
         return model.cats;
     },
 
-    // check if cat image is clicked on, increment counter if clicked
-    $catContainerClass.on('click', 'img', function() {
-        var currCat = this;
-        cats.forEach(function(cat) {
-            if ($(currCat).attr('src') === cat.image) {
-                cat.incrementClick();
-                cat.updateClicks();
-            }
-        });
-    });
+    setCurrCat: function(cat) {
+        model.currCat = cat;
+    },
+
+    incrementClick: function() {
+        model.currCat.clicks++;
+        catView.render();
+    }
 }
 
 
