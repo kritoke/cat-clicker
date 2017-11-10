@@ -32,6 +32,7 @@ var catView = {
     init: function() {
         var currCat = octopus.getCurrCat();
         const $catContainerClass = $('.cat-container');
+        const $catClickerClass = $('.cat-clicker');
         const $clickCountClass = `.${currCat.name}-click-counts`;
 
         // check if cat image is clicked on, increment counter if clicked
@@ -57,20 +58,20 @@ var catView = {
         </figcaption>`;
         $catClickerClass.html(catHTML + imgHTML + captionHTML);
     }
-}
+};
 
 var catPickerView = {
     init: function() {
-        const $catPickerClass = $('.cat-picker');
-        const $catClickerClass = $('.cat-clicker');
+        $catPickerClass = $('.cat-picker');
+        this.catPickerDisplay();
     },
 
     catPickerDisplay: function() {
         var catHTML = '<p>The following are the available cats, click to make one show up: </p>';
         $catPickerClass.append(catHTML);
 
-        cats.forEach(function(cat) {
-            $catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
+        octopus.getCats().forEach(function(cat) {
+            this.$catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
         });
     },
 
@@ -88,12 +89,12 @@ var catPickerView = {
             })
         });
     }
-}
+};
 
 var octopus = {
     init: function() {
         // set current cat to first in the list
-        // model.currCat = model.cats[0];
+        model.currCat = model.cats[0];
 
         // display cat list for selecting a cat image to click
         catPickerView.init();
@@ -116,6 +117,6 @@ var octopus = {
         model.currCat.clicks++;
         catView.render();
     }
-}
+};
 
 octopus.init();
