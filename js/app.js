@@ -31,6 +31,7 @@ var model = {
 var catView = {
     init: function() {
         $catContainerClass = $('.cat-container');
+        $catClickerClass = $('.cat-clicker');
 
         // check if cat image is clicked on, increment counter if clicked
         $catContainerClass.on('click', 'img', function() {
@@ -46,7 +47,6 @@ var catView = {
     },
 
     render: function() {
-        $catClickerClass = $('.cat-clicker');
         currCat = octopus.getCurrCat();
         $clickCountClass = `.${currCat.name}-click-counts`;
         this.updateClicks();
