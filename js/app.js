@@ -30,29 +30,26 @@ var model = {
 
 var catView = {
     init: function() {
-        currCat = octopus.getCurrCat();
-        $clickCountClass = `.${currCat.name}-click-counts`;
         $catContainerClass = $('.cat-container');
-        $catClickerClass = $('.cat-clicker');
 
         // check if cat image is clicked on, increment counter if clicked
         $catContainerClass.on('click', 'img', function() {
-            cats.forEach(function(cat) {
-                if (currCat.image === cat.image) {
-                    octopus.incrementClick();
-                    $($clickCountClass).html(currCat.clicks);
-                }
-            });
+            octopus.incrementClick();
         });
 
         this.render();
     },
 
     updateClicks: function() {
+
         $($clickCountClass).html(currCat.clicks);
     },
 
     render: function() {
+        $catClickerClass = $('.cat-clicker');
+        currCat = octopus.getCurrCat();
+        $clickCountClass = `.${currCat.name}-click-counts`;
+        this.updateClicks();
         var catHTML = '<p>Click the cat: </p>';
         var imgHTML = `<img src="${currCat.image}" alt="Click on Photo of ${currCat.name} to Increment Clicks">`;
         var captionHTML = `<figcaption><p>Name: ${currCat.name}</p>
@@ -87,7 +84,7 @@ var catPickerView = {
             cats.forEach(function(cat) {
                 if (currClass === cat.name) {
                     octopus.setCurrCat(cat);
-                    catView.init();
+                    catView.render();
                 }
             })
         });
