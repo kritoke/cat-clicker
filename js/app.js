@@ -91,6 +91,16 @@ var catPickerView = {
     }
 };
 
+var catAdminView = {
+  init: function() {
+    $catAdminClass = $('.cat-admin');
+    $catAdminClass.on('click', '.admin-button', function() {
+        
+    });
+    
+  }
+}
+
 var octopus = {
     init: function() {
         // set current cat to first in the list
@@ -98,6 +108,7 @@ var octopus = {
 
         // display cat list for selecting a cat image to click
         catPickerView.init();
+        catAdminView.init();
         catView.init();
     },
 
