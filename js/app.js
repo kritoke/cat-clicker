@@ -92,13 +92,16 @@ var catPickerView = {
 };
 
 var catAdminView = {
-  init: function() {
-    $catAdminClass = $('.cat-admin');
-    $catAdminClass.on('click', '.admin-button', function() {
-        
-    });
-    
-  }
+    init: function() {
+        currCat = octopus.getCurrCat();
+        $catAdminClass = $('.cat-admin');
+        $catAdminClass.on('click', '.admin-button', function() {
+            $('.cat-admin-editor').toggleClass('hidden');
+        });
+        $('.cat-admin-editor').on('click', '.submit-button', function() {
+            $('input[name=cat-name]').val(currCat.url);
+        });
+    }
 }
 
 var octopus = {
