@@ -102,7 +102,7 @@ var catAdminView = {
         });
         $('.cat-admin-editor').on('click', '.submit-button', function() {
             currCat.name = $('input[name=cat-name]').val();
-            currCat.url = $('input[name=cat-url]').val();
+            currCat.image = $('input[name=cat-url]').val();
             octopus.setCurrCat(currCat);
             catPickerView.render();
             catView.render();
