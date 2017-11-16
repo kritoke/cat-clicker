@@ -99,10 +99,12 @@ var catAdminView = {
             $('.cat-admin-editor').toggleClass('hidden');
             $('input[name=cat-name]').val(currCat.name);
             $('input[name=cat-url]').val(currCat.image);
+            $('input[name=cat-clicks').val(currCat.clicks);
         });
         $('.cat-admin-editor').on('click', '.submit-button', function() {
             currCat.name = $('input[name=cat-name]').val();
             currCat.image = $('input[name=cat-url]').val();
+            currCat.clicks = $('input[name=cat-clicks').val();
             octopus.setCurrCat(currCat);
             catPickerView.render();
             catView.render();
