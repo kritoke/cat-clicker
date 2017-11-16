@@ -62,13 +62,12 @@ var catView = {
 var catPickerView = {
     init: function() {
         $catPickerClass = $('.cat-picker');
-        this.catPickerDisplay();
         this.render();
     },
 
     catPickerDisplay: function() {
         var catHTML = '<p>The following are the available cats, click to make one show up: </p>';
-        $catPickerClass.append(catHTML);
+        $catPickerClass.html(catHTML);
 
         octopus.getCats().forEach(function(cat) {
             this.$catPickerClass.append(`<div class="${cat.name}">${cat.name}</div>`);
@@ -77,6 +76,7 @@ var catPickerView = {
 
     render: function() {
         var cats = octopus.getCats();
+        this.catPickerDisplay();
 
         // check if a cat name is clicked on
         $catPickerClass.on('click', 'div', function() {
@@ -97,10 +97,17 @@ var catAdminView = {
         $catAdminClass = $('.cat-admin');
         $catAdminClass.on('click', '.admin-button', function() {
             $('.cat-admin-editor').toggleClass('hidden');
+            $('input[name=cat-name]').val(currCat.name);
+            $('input[name=cat-url]').val(currCat.image);
         });
         $('.cat-admin-editor').on('click', '.submit-button', function() {
-            $('input[name=cat-name]').val(currCat.url);
+            currCat.name = $('input[name=cat-name]').val();
+            currCat.url = $('input[name=cat-url]').val();
+            octopus.setCurrCat(currCat);
+            catPickerView.render();
+            catView.render();
         });
+
     }
 }
 
