@@ -94,6 +94,7 @@ var catPickerView = {
 var catAdminView = {
     init: function() {
         currCat = octopus.getCurrCat();
+        currAdminView = this;
         $catAdminClass = $('.cat-admin');
         $catAdminClass.on('click', '.admin-button', function() {
             $('.cat-admin-editor').toggleClass('hidden');
@@ -102,14 +103,21 @@ var catAdminView = {
             $('input[name=cat-clicks').val(currCat.clicks);
         });
         $('.cat-admin-editor').on('click', '.submit-button', function() {
-            currCat.name = $('input[name=cat-name]').val();
-            currCat.image = $('input[name=cat-url]').val();
-            currCat.clicks = $('input[name=cat-clicks').val();
-            octopus.setCurrCat(currCat);
-            catPickerView.render();
-            catView.render();
-        });
+            currAdminView.render();
+        })
+        $('.cat-admin-editor').on('click', '.cancel-button', function() {
+            $('.cat-admin-editor').toggleClass('hidden');
+        })
+    },
 
+    render: function() {
+        currCat = octopus.getCurrCat();
+        octopus.setCurrCat(currCat);
+        currCat.name = $('input[name=cat-name]').val();
+        currCat.image = $('input[name=cat-url]').val();
+        currCat.clicks = $('input[name=cat-clicks').val();
+        catPickerView.render();
+        catView.render();
     }
 }
 
