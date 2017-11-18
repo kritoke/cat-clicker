@@ -102,8 +102,9 @@ var catAdminView = {
             $('input[name=cat-url]').val(currCat.image);
             $('input[name=cat-clicks').val(currCat.clicks);
         });
-        $('.cat-admin-editor').on('click', '.submit-button', function() {
+        $('.cat-admin-editor').on('click', '.save-button', function() {
             currAdminView.render();
+            $('.cat-admin-editor').toggleClass('hidden');
         })
         $('.cat-admin-editor').on('click', '.cancel-button', function() {
             $('.cat-admin-editor').toggleClass('hidden');
