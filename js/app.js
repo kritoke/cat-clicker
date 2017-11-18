@@ -105,10 +105,13 @@ var catAdminView = {
         $('.cat-admin-editor').on('click', '.save-button', function() {
             currAdminView.render();
             $('.cat-admin-editor').toggleClass('hidden');
-        })
+        });
         $('.cat-admin-editor').on('click', '.cancel-button', function() {
             $('.cat-admin-editor').toggleClass('hidden');
-        })
+        });
+        $('.cat-picker').on('click', 'div', function() {
+            $('.cat-admin-editor').toggleClass('hidden');
+        });
     },
 
     render: function() {
