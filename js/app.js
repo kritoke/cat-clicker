@@ -113,7 +113,6 @@ var catAdminView = {
 
     render: function() {
         currCat = octopus.getCurrCat();
-        octopus.setCurrCat(currCat);
         currCat.name = $('input[name=cat-name]').val();
         currCat.image = $('input[name=cat-url]').val();
         currCat.clicks = $('input[name=cat-clicks').val();
